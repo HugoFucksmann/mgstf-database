@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { } from 'react';
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+
+import ProtectedRoute from "./helpers/protectedRoute";
+import Principal from './pages/principal'
+import Error404 from "./pages/error404";
+import login from './pages/login'
+
+export const mgsfContext = React.createContext();
+const data = {data: 'datasaa'};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <mgsfContext.Provider value={data}>
+      <Router>
+        <Switch>
+          <Route exact from="/" component={login} />
+          <ProtectedRoute exact path="/inicio" component={Principal} />
+          <Route path="*" component={Error404} />
+        </Switch>
+      </Router>
+    </mgsfContext.Provider>
   );
 }
 

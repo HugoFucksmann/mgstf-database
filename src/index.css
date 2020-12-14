@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+ .loginCard {
+   padding: 20px;
+   max-width: 450px;
+   margin: 100px auto 0;
+ }
+
+@media all and (min-width: 480px) {
+ 
+}
