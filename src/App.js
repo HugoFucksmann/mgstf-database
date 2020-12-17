@@ -1,16 +1,18 @@
 import React, { } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import ApolloClient from "apollo-boost";
+import {ApolloClient, InMemoryCache } from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
-
 import ProtectedRoute from "./helpers/protectedRoute";
 import Principal from './pages/principal'
 import Error404 from "./pages/error404";
 import login from './pages/login'
+import { createHttpLink } from "apollo-link-http";
 
+const link = createHttpLink({ uri: "http://localhost:4000/graphql" });
 
 const client = new ApolloClient({
-  uri: "http://localhost:5000/graphql",
+  link,
+  cache: new InMemoryCache(),
   onError: ({ networkError, graphQLErrors }) => {
     console.log("graphQLErrors", graphQLErrors);
     console.log("networkError", networkError);

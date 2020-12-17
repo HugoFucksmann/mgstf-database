@@ -1,12 +1,10 @@
-import Cookies from "js-cookie";
-
 class Auth {
   constructor() {
     this.authenticated = false;
   }
 
   get token(){
-    return Cookies.get('x-token') || '';
+    return localStorage.getItem('token') || '';
   }
 
   isAuthenticated() {

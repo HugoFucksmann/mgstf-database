@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Mutation } from "react-apollo";
 import { gql } from "apollo-boost";
-import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 const Mlogin = gql`
   mutation login($usuario: String!, $password: String!) {
@@ -29,13 +29,14 @@ export default function Login(props) {
        variables: { usuario, password },
      });
   }
-  
+  console.log('read 1');
   return (
     <Mutation mutation={Mlogin}>
       {(autentication, { data }) => {
-        if (data && data.login.msg === "login ok!") {
-          Cookies.set('x-token', data.login.token);
-          props.history.push("/inicio");
+        if (data && data.login.autenticated && data.login.msg === "login ok!") {
+          localStorage.setItem('token', data.login.token);
+          setTimeout(() => props.history.push("/inicio"), 1000);
+          Swal.fire("Login ok!", "", "success");
         }
         return (
           <Card border="primary" className="loginCard shadow">
